@@ -1,0 +1,28 @@
+services:
+  develop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URI=postgresql://devuser:devpass@db:5432/devdb
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=devpass
+      - POSTGRES_DB=devdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports: 
+      - "5432:5432"
+
+volumes:
+  postgres_data:
