@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'docker build -f Dockerfile. prod -t %DOCKER_IMAGE%:%DOCKER_TAG% .'
+                bat 'docker build -f Dockerfile.prod -t %DOCKER_IMAGE%:%DOCKER_TAG% .'
             }
         }
 
