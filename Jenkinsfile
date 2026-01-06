@@ -33,8 +33,8 @@ pipeline {
                 )]) {
                     bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
                     bat 'docker push %DOCKER_IMAGE%:%DOCKER_TAG%'
-                    bat 'docker tag %DOCKER_IMAGE%:%DOCKER_TAG% %DOCKER_IMAGE%: latest'
-                    bat 'docker push %DOCKER_IMAGE%: latest'
+                    bat 'docker tag %DOCKER_IMAGE%:%DOCKER_TAG% %DOCKER_IMAGE%:latest'
+                    bat 'docker push %DOCKER_IMAGE%:latest'
                 }
             }
         }
