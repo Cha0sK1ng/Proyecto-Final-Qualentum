@@ -15,7 +15,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'docker run --rm -v %CD%/tests:/app/tests -v %CD%/dev-requirements.txt:/app/dev-requirements.txt %DOCKER_IMAGE%:%DOCKER_TAG% sh -c "pip install -r dev-requirements.txt && pytest --cov=app && flake8 app/"'
+                bat 'docker run --rm --entrypoint sh -v %CD%/tests:/app/tests -v %CD%/dev-requirements.txt:/app/dev-requirements.txt %DOCKER_IMAGE%:%DOCKER_TAG% -c "pip install -r dev-requirements.txt && pytest --cov=app && flake8 app/"'
             }
         }
 
