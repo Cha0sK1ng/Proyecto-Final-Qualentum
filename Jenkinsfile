@@ -15,9 +15,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'docker build -t test-image .'
-                bat 'docker run --rm test-image pytest --cov=app'
-                bat 'docker run --rm test-image flake8 app/'
+                bat 'docker run --rm -v %CD%/tests:/app/tests -v %CD%/dev-requirements.txt:/app/dev-requirements.txt %DOCKER_IMAGE%:%DOCKER_TAG% sh -c "pip install -r dev-requirements.txt && pytest --cov=app && flake8 app/"'
             }
         }
 
@@ -44,7 +42,6 @@ pipeline {
         always {
             bat 'docker logout || exit 0'
             bat 'docker rmi %DOCKER_IMAGE%:%DOCKER_TAG% || exit 0'
-            bat 'docker rmi test-image || exit 0'
         }
     }
 }
